@@ -1,5 +1,5 @@
 <template> 
-    <v-sheet width="600" class="mx-auto">
+    <v-sheet width="600" class="mx-auto form-login">
 
         <p v-if="errors.length">
             <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
@@ -10,7 +10,7 @@
 
         <v-row class="text-center">
             <v-col cols="12" class="titulo-login">
-                <h2>Login</h2>
+                <h2 class="primary">Login</h2>
             </v-col>
         </v-row>
 
@@ -29,7 +29,7 @@
             @click:append="show1 = !show1"
             label="Senha"
         ></v-text-field>
-        <v-btn @click="realizarLogin" block class="mt-2" color="info">Logar</v-btn>        
+        <v-btn @click="realizarLogin" block class="mt-2" color="primary">Logar</v-btn>        
         </v-form>
     </v-sheet>
 
@@ -89,6 +89,16 @@ export default {
 
 .v-input__icon--append .v-icon { 
     color: purple;
+}
+
+h2 {
+    color: #6200EE;
+    padding-bottom: 0.5rem;
+}
+
+.form-login {
+    background-color: rgb(236, 236, 236);
+    padding: 1.5rem;
 }
 
 </style>

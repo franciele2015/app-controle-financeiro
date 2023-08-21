@@ -12,4 +12,5 @@ export class Receitas {
         this.dataDeEntrada = receita.data;
         this.valor = receita.valor;
     }
+
   }

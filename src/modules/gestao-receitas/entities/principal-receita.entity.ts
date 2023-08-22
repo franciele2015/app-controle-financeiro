@@ -37,4 +37,9 @@ export class PrincipalReceita {
         return Math.random().toString(36).substring(2, 15);
       }
 
+    calcularReceita() { 
+        const somaValorFinal = this.receitas.reduce((accumulador, currentValue) => +accumulador + +currentValue.valor, 0);
+        return somaValorFinal;
+    }
+
 }

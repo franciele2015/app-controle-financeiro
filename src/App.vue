@@ -21,7 +21,7 @@
           <v-divider></v-divider>
   
           <v-list density="compact" nav>
-            <v-list-item prepend-icon="mdi-folder" title="Dasboard" value="myfiles"></v-list-item>
+            <v-list-item prepend-icon="mdi-folder" title="Dasboard" value="myfiles" @click="acaoDasboard"></v-list-item>
             <v-list-item prepend-icon="mdi-account-multiple" title="Receitas" value="shared" @click="acaoReceitas"></v-list-item>
             <v-list-item prepend-icon="mdi-star" title="Despesas" value="starred" @click="acaoDespesas"></v-list-item>
           </v-list>
@@ -40,6 +40,9 @@ export default {
   },
   data: () => ({}),
   methods: {
+      acaoDasboard() {
+        this.$router.push({name:'dasboard-home'})
+      },
       acaoReceitas() {    
         this.$router.push({name:'receita-lista'})        
       },

@@ -1,100 +1,87 @@
 <template>
-  <v-list max-height="600px" lines="one">
-        <h1>Listagem</h1>
-        <v-list-item
-            v-for="(item, index) in dashboardListagem"
-            :key="index"
-            title="Teste"
-            subtitle="...."
-        >
-        </v-list-item>
-    </v-list>
-
+  <h2> Dasboard </h2>
   <v-row>
-    <adicionar-receita-dialog
-      @salvar-receita="salvarReceita"
-      v-model="showModalAdicionarReceita">
-    </adicionar-receita-dialog>
-    <v-col cols="12">
-      <dashboard-header-component>      
-      </dashboard-header-component>
+    <v-col cols="4">
+      <div class="card-saldo">
+        <h3>Saldo Total: </h3> 
+      </div>
     </v-col>
-    <v-row>
-      <v-col cols="4">
-        <dashboard-left-component
-        @adicionar-receita="setShowAdicionarReceita"></dashboard-left-component>
-      </v-col>
-      <v-col cols="8">      
-        <dashboard-listagem-component
-          @deletar-receita="deletarReceita"
-          :dashboard-listagem="filtrarReceitas">
-        </dashboard-listagem-component>        
-      </v-col>
-    </v-row>
+
+    <v-col cols="4">
+      <div class="card-saldo">
+        <h3>Receitas: {{ totalReceita() }} </h3> 
+      </div>
+    </v-col>
+
+    <v-col cols="4">
+      <div class="card-saldo">
+        <h3>Despesas: {{ totalDespesa() }} </h3> 
+      </div>
+    </v-col>
+
   </v-row>
+  
 </template>
 
 <script lang="ts">
-
-import AdicionarReceitaDialog from "./components/dialogs/adicionar-receita.dialog.vue";
-import DashboardListagemComponent from "./components/dashboard-listagem/dashboard-listagem.component.vue";
-import DashboardHeaderComponent from "./components/dashboard-header/dashboard-header.component.vue";
-import DashboardLeftComponent from "./components/dashboard-left/dashboard-left.component.vue";
-import getReceitasService from "./services/get-receitas.services";
-import { ReceitaFilter } from "./entities/receita-filter";
-import { Receita } from "./entities/receita.entity";
-import { FormReceita } from "./entities/form-receita.entity";
-import { PropType } from "vue";
+import { PrincipalDespesa } from "../gestao-despesas/entities/principal-despesa.entity";
+import getDespesasServices from "../gestao-despesas/services/get-despesas.services";
+import { PrincipalReceita } from "../gestao-receitas/entities/principal-receita.entity";
+import getReceitasServices from "../gestao-receitas/services/get-receitas.services";
 
 export default {
   components: {
-    AdicionarReceitaDialog,
-    DashboardListagemComponent,
-    DashboardHeaderComponent,
-    DashboardLeftComponent
+    
   },
   props: {
-    dashboardListagem: {
-      type: Array as PropType<string[]>,
-      required: true,
-      default: () => [],
-    }
+    
   },
-  data: () => ({
-    receitas: new Receita(),
-    filter: new ReceitaFilter(),
-    showModalAdicionarReceita: false,
+  data: () => ({   
+    principalDespesa: new PrincipalDespesa(), 
+    principalReceita: new PrincipalReceita(),
         
   }),
   methods: {
+    async getDespesas() {
+        const despesas = await getDespesasServices.execute();
+        this.principalDespesa.despesas = despesas;            
+    },
+
     async getReceitas() {
-      const receitas = await getReceitasService.execute();
-      this.receitas.formReceitas = receitas;
+        const receitas = await getReceitasServices.execute();
+        this.principalReceita.receitas = receitas;            
     },
-    setShowAdicionarReceita() {
-      this.showModalAdicionarReceita = true;
+
+    totalDespesa() {
+      return this.principalDespesa.calcularDespesas();
     },
-    closeDialogAdicionarReceita() {
-      this.showModalAdicionarReceita = false;
+
+    totalReceita() {
+      return this.principalReceita.calcularReceita();
     },
-    salvarReceita(formReceita: FormReceita ) {
-      this.receitas.salvarReceita(formReceita);
-      this.closeDialogAdicionarReceita();
-    },
-    setFilterPorNome(nome: string) {
-      this.filter.nome = nome;
-    },
-    deletarReceita(formReceita: FormReceita) {
-      this.receitas.deletarReceita(formReceita.id);
-    },
+
   },
-  computed: {    
-    filtrarReceitas() {
-      return this.receitas.filtrarReceitas(this.filter.name);
-    },
-  },
-  created() {
-    this.getReceitas();
-  },
+  created() { // executado antes de montar o html
+      this.getDespesas();
+      this.getReceitas();
+  }
+
 }
 </script>
+
+<style>
+
+.card-saldo {
+  border: 1px solid #8d79c2;
+  border-radius: 0.75rem;
+  background-color: #f6f3ff;
+  height: 75px;
+  margin-top: 1.2rem;
+}
+
+h3 {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+</style>

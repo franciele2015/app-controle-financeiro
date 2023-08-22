@@ -1,6 +1,11 @@
 <template>
-    <v-list max-height="700px" lines="two">
+    <v-list max-height="100%" lines="two">
         <h1>Listagem</h1>
+
+        <v-col cols="6">
+            <v-btn @click="adicionarNovaDespesa" class="btn-acoes">Adicionar</v-btn>        
+        </v-col>
+
         <v-list-item class="listConteudo"
             v-for="(item, index) in despesaList"
             :key="index"
@@ -36,6 +41,10 @@ export default {
 
     data: () => ({}),
     methods: {
+        adicionarNovaDespesa() {
+            this.$emit("adicionar-nova-despesa");
+        },
+
         editarDespesa(despesa: Despesas) {
             this.$emit("editar-despesa", despesa);
         },

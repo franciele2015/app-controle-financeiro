@@ -27,4 +27,11 @@ export const receitas = [
         dataDeEntrada: "10/01/2023",
         valor: "2000.00"
     },
+    {
+        id: 5,
+        nome: "Décimo terceiro salário",
+        descricao: "Décimo terceiro salário recebidos da instituicao empregatoria mensalmente",
+        dataDeEntrada: "15/01/2023",
+        valor: "1500.00"
+    },
 ]

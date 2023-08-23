@@ -25,7 +25,7 @@
                 outlined
                 dense
               ></v-text-field>
-              <VueDatePicker v-model="despesa.dataVencimento"></VueDatePicker>
+              <VueDatePicker v-model="despesa.dataVencimento" hint="MM/DD/YYYY format"></VueDatePicker>
               <v-select
                 v-model="despesa.categoria"
                 v-validate="'required'"
@@ -77,7 +77,6 @@ export default {
     }
   },
   data: () => ({ 
-    date: null,
     despesa: new Despesas(),    
     items: [
       'Moradia',
@@ -115,6 +114,7 @@ export default {
         this.despesa = new Despesas();
       }
     },
+
   },
 
   created() { // executado antes de montar o html

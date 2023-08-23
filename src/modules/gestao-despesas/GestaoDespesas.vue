@@ -40,7 +40,7 @@ export default {
         modoEdicao: false,
     }),
     methods: {        
-        async getDespesas() {
+        async getDespesas() {            
             const despesas = await getDespesasServices.execute();
             this.principalDespesa.despesas = despesas;            
         },

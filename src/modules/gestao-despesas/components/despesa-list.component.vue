@@ -52,6 +52,7 @@ export default {
         deletarDespesa(despesa: Despesas) {
             this.$emit("deletar-despesa", despesa);
         },
+ 
     },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <v-list max-height="600px" lines="one">
+    <v-list max-height="100%" lines="one">
         <h1>Listagem</h1>
 
         <v-col cols="6">

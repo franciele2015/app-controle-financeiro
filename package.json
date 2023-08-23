@@ -13,8 +13,12 @@
     "@vuepic/vue-datepicker": "^6.0.1",
     "add": "^2.0.6",
     "axios": "^1.4.0",
+    "chart.js": "^4.3.3",
+    "moment": "^2.29.4",
     "sass": "^1.65.1",
     "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0",
+    "vue-moment": "^4.1.0",
     "vue-router": "^4.2.4",
     "vuetify": "^3.3.13"
   },

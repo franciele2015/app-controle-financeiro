@@ -21,7 +21,7 @@
 
   </v-row>
 
-  <v-row>
+  <v-row class="graficos">
     <Bar :data="chartData" />
   </v-row>
   
@@ -50,7 +50,8 @@ export default {
   components: {
     Bar    
   },
-  props: {  },
+  props: { 
+   },
   
   data: () => ({ 
     chartData: {
@@ -58,11 +59,15 @@ export default {
         datasets: [
           {
             label: 'Relação Geral',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12]
+            backgroundColor: '#747bff',
+            data: [890, 3840, 2950]
           }
         ]
-      },  
+      },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    } ,
 
     principalDespesa: new PrincipalDespesa(), 
     principalReceita: new PrincipalReceita(),
@@ -119,5 +124,9 @@ h3 {
   margin-top: 0.5rem;
   padding: 0.5rem;
   text-align: center;
+}
+
+.graficos {
+  margin-top: 2rem !important;
 }
 </style>

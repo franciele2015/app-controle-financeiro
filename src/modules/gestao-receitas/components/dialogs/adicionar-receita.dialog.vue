@@ -88,8 +88,19 @@ export default {
       const { valid } = await form.validate();
 
       if (valid) {
+        const date = this.receita.dataDeEntrada;
+        const dataDeEntradaFormatada = this.formatDate(date);        
+        this.receita.dataDeEntrada = dataDeEntradaFormatada;        
         this.$emit("salvar-receita", this.receita);
       }
+    },
+
+    formatDate(date: any) {
+      if (!date) return null;
+
+      const currentDate: any = new Date(date).toISOString().substring(0, 10);      
+      const [year, month, day] = currentDate.split("-");
+      return `${day}/${month}/${year}`;
     },
 
     inicializarReceita() {

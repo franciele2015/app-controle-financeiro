@@ -103,8 +103,19 @@ export default {
       const { valid } = await form.validate();
 
       if (valid) {
+        const date = this.despesa.dataVencimento;
+        const dataVencimentoFormatada = this.formatDate(date);        
+        this.despesa.dataVencimento = dataVencimentoFormatada;
         this.$emit("salvar-despesa", this.despesa);
       }
+    },
+
+    formatDate(date: any) {
+      if (!date) return null;
+
+      const currentDate: any = new Date(date).toISOString().substring(0, 10);      
+      const [year, month, day] = currentDate.split("-");
+      return `${day}/${month}/${year}`;
     },
 
     inicializarDespesa() {

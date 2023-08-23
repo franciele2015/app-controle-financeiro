@@ -1,8 +1,11 @@
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import { VuetifyDateAdapter } from 'vuetify/labs/date/adapters/vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import enUS from 'date-fns/locale/en-US'
+import svSE from 'date-fns/locale/sv'
 
 const myCustomLightTheme = {
     dark: false,
@@ -21,6 +24,13 @@ const myCustomLightTheme = {
   }
 
   const vuetify = createVuetify({
+    date: {
+      adapter: VuetifyDateAdapter,
+      locale: {
+        en: enUS,
+        sv: svSE,
+      },
+    },
     components,
     directives,
     theme: {

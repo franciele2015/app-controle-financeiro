@@ -1,15 +1,16 @@
 <template> 
     <v-app>
-      <v-app-bar
-          app          
-        >
-          <v-toolbar-title>Seja Bem vindo Usuário!</v-toolbar-title>
-          <v-spacer></v-spacer>
-      </v-app-bar>
-      <v-navigation-drawer
-          expand-on-hover
-          rail
-        >
+      <div v-if="userStore.isLogged">
+        <v-app-bar
+            app          
+          >
+            <v-toolbar-title>Seja Bem vindo(a) <b>{{ userStore.email }}</b> </v-toolbar-title>
+            <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-navigation-drawer
+            expand-on-hover
+            rail
+          >
           <v-list>
             <v-list-item
               prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
@@ -27,6 +28,7 @@
           </v-list>
         </v-navigation-drawer>
 
+      </div>
       <v-content>
         <router-view></router-view> 
       </v-content>
@@ -35,10 +37,16 @@
 
 <script lang="ts">
 
+import { mapStores } from 'pinia';
+import useUserStore from '../src/store/user-store';
+
 export default {
   components: {    
   },
   data: () => ({}),
+  computed: {
+    ...mapStores(useUserStore),
+  },
   methods: {
       acaoDasboard() {
         this.$router.push({name:'dasboard-home'})

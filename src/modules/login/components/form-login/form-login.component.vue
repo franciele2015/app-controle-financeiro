@@ -36,7 +36,10 @@
 </template>
 
 <script lang="ts">
+import { mapStores } from 'pinia';
 import { FormLogin } from "../../entities/form-login.entity";
+import useUserStore from '../../../../store/user-store';
+
 export default {
     components: {},
     
@@ -54,7 +57,8 @@ export default {
                 value.length >= 3 || "Email deve ter no mínimo 3 caracteres",
         
             }
-        }
+        },
+        ...mapStores(useUserStore),
     },
     methods: {
         async realizarLogin() {
@@ -62,11 +66,9 @@ export default {
             const { valid } = await form.validate();
 
             if (valid) {
-                if (!this.validEmail(this.formLogin.email)) {
-                this.errors.push("Email Invalido! Por favor informe uma e-mail valido");
-                   return ;
-                }
-                this.errors = [];
+                this.userStore.setIsAuthentication(true);
+                this.userStore.setUserEmail(this.formLogin.email);
+                localStorage.setItem('token', '123');
                 this.$emit("realizar-login", this.formLogin);
             }
         },
